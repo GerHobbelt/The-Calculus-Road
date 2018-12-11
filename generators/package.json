@@ -1,0 +1,26 @@
+{
+  "name": "generators",
+  "version": "1.0.0",
+  "description": "calculus exercises generator library for primary school calculus / math",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm run typescript && npm run transpile",
+    "transpile": "./node_modules/.bin/babel __tsbuild --out-dir lib --source-maps",
+    "typescript": "./node_modules/.bin/tsc --build",
+    "test": "npm run build && node lib/exercises.prescription.js"
+  },
+  "author": "Ger Hobbelt",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/cli": "7.2.0",
+    "@babel/core": "7.2.0",
+    "@babel/preset-env": "7.2.0",
+    "@babel/preset-typescript": "7.1.0",
+    "tslint": "5.11.0",
+    "tslint-config-standard": "8.0.1",
+    "typescript": "3.2.2"
+  },
+  "dependencies": {
+    "@babel/polyfill": "7.0.0"
+  }
+}
