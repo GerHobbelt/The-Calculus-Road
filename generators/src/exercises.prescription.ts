@@ -1,7 +1,13 @@
 
+import assert from "@gerhobbelt/power-assert";
+
 // import Exercise from "exercise";
 
 class Exercise {
+	pages: number;
+	columns: number;
+	rows: number;
+	lines: number;
 
 	constructor() {
 
@@ -9,6 +15,11 @@ class Exercise {
 
 	// Produce a total of 4 rows of 3 groups (columns) of 5 sums each (a single page):
 	layout(pages: number, columns: number, rows: number, lines: number) {
+		this.pages = pages;
+		this.columns = columns;
+		this.rows = rows;
+		this.lines = lines;
+
 		return this;
 	}
 
