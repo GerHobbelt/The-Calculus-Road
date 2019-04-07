@@ -30,6 +30,11 @@ Uitleg
 # Theorie ~ de onderwerpen
 
 - tellen
+  - vooruit en achteruit tellen: het begin van optellen en aftrekken
+  - visualiseren zonder eendjes: de getallenlijn
+  - het getal nul: een uitvinding
+  - de relatie met geld, speelgoed, ijsjes en alles wat je leuk en lekker vindt
+  - negatieve getallen: het tekort in je portemonaie, lenen bij je moeder, vader of anderen en andere zorgen
 - optellen
   - commutativiteit
 - aftrekken
@@ -60,6 +65,14 @@ Uitleg
 - % percentage, promillage, perunage
 - lengte en afstand
 - omtrek en oppervlakte
+- breuken
+  - wat is het
+  - rekenregels: optellen en aftrekken van breuken
+  - rekenregels: vermenigvuldigen van breuken
+  - rekenregels: delen van twee breuken
+  - wat te doen als één van de twee getallen geen breuk is
+- elk getal kan als breuk worden geschreven
+- de magie van het getal 1 en vermenigvuldogen met 1
 - lengtematen / afstandsmaten en de conversie daarvan
 - oppervlaktematen
 - inhoud
@@ -173,7 +186,26 @@ Uitleg
     - programmeren & programmeertalen: operatoren en nog wat meer
     
     
+## Extra/aanvullende onderwerpen
 
+- redeneren over rekenregels: algebra ("letters") toepassen op rekenen om beter en sneller te kunnen denken/redeneren over rekenregels, waarom ze werken en of we bruikbare alternatieve methodes kunnen ontdekken zodat we makkelijker werk hebben. 
+  - vermenigvuldigen van getallen met 2 cijfers of meer
+  - is rekenen met een afgerond getal en dan corrigeren voor je afronding sneller en makkelijker? 
+  - hoe kunnen de "bijzondere producten" uit de algebra ons werk bij vermenigvuldigen simpeler en sneller maken? 
+  - rekenwonderen: mensen die erg rap kunnen rekenen en de rekenregels en getalbegrip dat zij gebruiken
+    - altijd handig als je van een slimmer mens iets kunt overnemen
+    - altijd goed om te snappen wat je doet: zelfcontrole en niet klem zitten als "het" niet goed is of "het" niet lijkt te werken
+  - computers toen er nog geen computers waren: machines zijn sneller dan vrouwen.
+  - computer onhebbelijkheden bij rekenen
+    - "silent overflow" 
+    - floating point ~ een soort decimale breuken voor computerchips, maar nu in het binaire talstelsel
+    - floating point en het geruisloze venijn van "underflow": een echte WTF
+    - typecasting / type conversion: de "tussentijdse afronding" die je niet herkent
+    - floating point en de significante cijfers: die computer sjoemelt al bij machtsverheffen, laat staan bij andere voortgezette functies
+    - exponentieel groeiende foutmarges bij simulaties en andere langere betekeningen: zo hou je geen significant cijfer over straks! 
+    - moderne "A.I." en het probleem van systemen die je iets moet leren: ze herkennen dingen die er niet zijn. 
+      - verschilt dat van "fantasie"? 
+      
 
   
   
