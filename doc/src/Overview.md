@@ -206,7 +206,30 @@ Uitleg
     - moderne "A.I." en het probleem van systemen die je iets moet leren: ze herkennen dingen die er niet zijn. 
       - verschilt dat van "fantasie"? 
       
+      
+- commutatief, associatief, ... 
+- optellen vs aftrekken; vermenigvuldigen vs delen; machtsverheffen vs worteltrekken: de omgekeerde bewerking a.k.a. "inverse functie" a.k.a. "the inverse" 
+- inverse vs complement
+- exponentieel: werken met rente, inflatie, etc: economie -> het begrip "waarde" vs het bedrag of getal en hoe mensen dat vaak verwarren, soms moedwillig. 
+- logarithmes
+- cosinus, sinus,...
+- graden, radialen en die andere graden (landmeters: 400 graden) 
+- de rechte lijn is de kortste weg, maar soms toch niet: de wereldbol
+  - boldriehoeksmeting en de kortste weg: de koorde
+  - de rechte weg is soms wel de kortste, maar lang niet altijd de makkelijkste of de goedkoopste
+    - de meest wenselijke weg vinden: "path finding" algorithmes
+    - de computer als hulpje
+    - "graph theory" (en de puzzel van Euler) 
+    - A* en aanverwanten
+- snelheid vs afstand. Versnelling vs snelheid. De introductie van afgeleide functies
+- differentiëren
+- oppervlakte onder curve. Van snelheid naar afstand. Integreren van functies. 
+- voor als het echt lastig wordt: simulatie op de computer
+  - 
 
+    
+    
+    
   
   
   
