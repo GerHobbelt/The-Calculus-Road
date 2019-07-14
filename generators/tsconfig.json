@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": "./",
+    "rootDir": "./src",
+    "jsx": "react",
+    "target": "es2017",
+    "module": "es2015",
+    "moduleResolution": "node",
+    "noEmit": false,
+    "noUnusedLocals": true,
+    "noUnusedParameters": false,
+    "pretty": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+
+    "outDir": "__tsbuild"
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": ["node_modules", "**/node_modules/*"]
+}
