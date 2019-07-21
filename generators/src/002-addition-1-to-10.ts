@@ -15,23 +15,14 @@
 // A zero status value means the Expression is OK...
 // 
 
+/*
 
-class Expression {
+class Expression() {
 	public ast = [];
-
-	public termSeeds = [];
-	public tweakedTerms = [];
-
 	public result: number = NaN;
 	public status: number = 0;
 
-	constructor() {
-
-	}
-
-/*
-
-  	add(term: Expression) {
+	function add(term: Expression) {
 		if (seed != null) {
 			// seed is an AST: use it
 			let seedValue = seed.result;
@@ -52,7 +43,7 @@ class Expression {
 // 8 * 7 + 35      ? <= 100     Y
 // 8 * 7 + 6 * 9   ? <= 100     N
  
-	addUpToLimit(upperLimit: number, seed: Expression) {
+	function addUpToLimit(upperLimit: number, seed: Expression) {
 		if (seed != null) {
 			// seed is an AST: use it
 			let seedValue = seed.result;
@@ -69,10 +60,9 @@ class Expression {
 			}
 		}
 	}
-*/
 }
 
-
+*/
 
 
 
