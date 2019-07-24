@@ -1,5 +1,5 @@
 
-import assert from "@gerhobbelt/power-assert";
+// import assert from "@gerhobbelt/power-assert";
 
 // import Exercise from "exercise";
 

@@ -48,7 +48,15 @@ let totals = 0;
 const power = 10;
 const altPower = 1.3;		
 
-function convertFloatToFraction(value, largestDenominator) {
+interface FractionSpec {
+	readonly median: number;
+	readonly integerPart: number;
+	readonly medianNumerator: number;
+	readonly medianDenominator: number;
+	readonly IEEE754CalcPrecLimitReached: boolean; 
+};
+
+function convertFloatToFraction(value: number, largestDenominator?: number) : FractionSpec {
 	// Only traverse the part of the Stern-Bocot tree that spans value range <0, 1>:
 	// all the higher fractions can be reduced to this range by first extracting the
 	// integer part of the value, hence the SB start value `d` has been adjusted 
@@ -67,7 +75,7 @@ function convertFloatToFraction(value, largestDenominator) {
 	// `largestDenominator` edge constant:
 	largestDenominator++;
 
-	console.log("Test FloatToFraction:", value, largestDenominator);
+	console.log("Test FloatToFraction:", { integerPart, fracValue, largestDenominator });
 
 	// The achievable accuracy of the conversion is *not* 0.5/largestDenominator
 	// as for any largestDenominator, we can legally test *any* denominator from
@@ -115,27 +123,29 @@ function convertFloatToFraction(value, largestDenominator) {
 		if (medianDenominator >= largestDenominator || IEEE754CalcPrecLimitReached) {
 			let m1 = a / b;
 			let m2 = c / d;
-			// console.log("hitting denominator limits:", value - m1, m2 - value, (m2 + m1) / 2, (m2 + m1) / 2 - value);
+			// console.log("hitting denominator limits:", fracValue - m1, m2 - fracValue, (m2 + m1) / 2, (m2 + m1) / 2 - fracValue);
 			totals += i + j;
-			if (value - m1 < m2 - value) {
-				console.log(`APPROXIMATE match`, m1, value, `diff = ${m1 - value}`, `${a} / ${b}`, `rounds: outer = ${i}, inner = ${j}, total = ${i + j}`);
-				return [m1, a, b];
-			} else if (value - m1 > m2 - value) {
-				console.log(`APPROXIMATE match`, m2, value, `diff = ${m2 - value}`, `${c} / ${d}`, `rounds: outer = ${i}, inner = ${j}, total = ${i + j}`);
-				return [m2, c, d];
+			if (fracValue - m1 < m2 - fracValue) {
+				console.log(`APPROXIMATE match`, m1, fracValue, `diff = ${m1 - fracValue}`, `${a} / ${b}`, `rounds: outer = ${i}, inner = ${j}, total = ${i + j}`);
+				return { median: m1, integerPart, medianNumerator: a, medianDenominator: b, IEEE754CalcPrecLimitReached };
+			} else if (fracValue - m1 > m2 - fracValue) {
+				console.log(`APPROXIMATE match`, m2, fracValue, `diff = ${m2 - fracValue}`, `${c} / ${d}`, `rounds: outer = ${i}, inner = ${j}, total = ${i + j}`);
+				return { median: m2, integerPart, medianNumerator: c, medianDenominator: d, IEEE754CalcPrecLimitReached };
 			} else if (b < d) {
-				console.log(`=APPROXIMATE= match`, m1, value, `diff = ${m1 - value}`, `${a} / ${b}`, `rounds: outer = ${i}, inner = ${j}, total = ${i + j}`);
-				return [m1, a, b];
+				console.log(`=APPROXIMATE= match`, m1, fracValue, `diff = ${m1 - fracValue}`, `${a} / ${b}`, `rounds: outer = ${i}, inner = ${j}, total = ${i + j}`);
+				return { median: m1, integerPart, medianNumerator: a, medianDenominator: b, IEEE754CalcPrecLimitReached };
 			} else {
-				console.log(`=APPROXIMATE= match`, m2, value, `diff = ${m2 - value}`, `${c} / ${d}`, `rounds: outer = ${i}, inner = ${j}, total = ${i + j}`);
-				return [m2, c, d];
+				console.log(`=APPROXIMATE= match`, m2, fracValue, `diff = ${m2 - fracValue}`, `${c} / ${d}`, `rounds: outer = ${i}, inner = ${j}, total = ${i + j}`);
+				return { median: m2, integerPart, medianNumerator: c, medianDenominator: d, IEEE754CalcPrecLimitReached };
 			}
 		}
 		let median = medianNumerator / medianDenominator;
-		let diff = (median - value);
-		// console.log(`iterator ${i}: diff: ${diff}, a: ${a}, b: ${b}, c: ${c}, d: ${d}`);
+		if (0) {
+			let diff = (median - fracValue);
+			console.log(`iterator ${i}: diff: ${diff}, a: ${a}, b: ${b}, c: ${c}, d: ${d}`);
+		}
 
-		if (median === value) {
+		if (median === fracValue) {
 			if (rCount) {
 				console.log(`R^${rCount} --> fractions ${rMsg}`);
 				rCount = 0;
@@ -147,9 +157,9 @@ function convertFloatToFraction(value, largestDenominator) {
 
 			totals += i + j;
 			console.log(`match`, median, `${medianNumerator} / ${medianDenominator}`, `rounds: outer = ${i}, inner = ${j}, total = ${i + j}`);
-			return [median, medianNumerator, medianDenominator];
+			return { median, integerPart, medianNumerator, medianDenominator, IEEE754CalcPrecLimitReached };
 		}
-		else if (median < value) {
+		else if (median < fracValue) {
 			if (lCount) {
 				console.log(`L^${lCount} --> fractions ${lMsg}`);
 				lCount = 0;
@@ -166,7 +176,7 @@ function convertFloatToFraction(value, largestDenominator) {
 			let md = d + medianDenominator;
 			let m2 = mn / md;
 			console.log("R-branch start", a, b, c, d, mn, md, m2);
-			if (m2 < value) {
+			if (m2 < fracValue) {
 				// To hit 'edge cases' such as 1e-100 and 1e+100 faster, we test multiple powers, exponentially
 				// degrading the power (rather: multiplier) until we can do no more:
 				let multiplier = 1e7 + randFloat2(1e6);
@@ -181,8 +191,8 @@ function convertFloatToFraction(value, largestDenominator) {
 						mn = mult * c + medianNumerator;
 						md = mult * d + medianDenominator;
 						m2 = mn / md;
-						// console.log(`R-count`, count, multiplier, expectLastRound, m2 - value, mn - a, md - b);
-					} while (m2 < value && md < largestDenominator);
+						// console.log(`R-count`, count, multiplier, expectLastRound, m2 - fracValue, mn - a, md - b);
+					} while (m2 < fracValue && md < largestDenominator);
 
 					count = prevCount;
 
@@ -201,7 +211,7 @@ function convertFloatToFraction(value, largestDenominator) {
 				rCount += mult + 1;
 				rMsg = `${mn} / ${md} <> ${c} / ${d}`;
 
-				// Check if we hit the IEE754 calculus precision limits:
+				// Check if we hit the IEEE754 calculus precision limits:
 				if (a === mn && b === md) {
 					console.log(`IEEE754 precision limits reached: fractions ${a} / ${b} --> ${mn} / ${md} <> ${c} / ${d}`);
 					IEEE754CalcPrecLimitReached = true;
@@ -234,7 +244,7 @@ function convertFloatToFraction(value, largestDenominator) {
 			let md = b + medianDenominator;
 			let m2 = mn / md;
 			console.log("L-branch start", a, b, c, d, mn, md, m2);
-			if (m2 > value) {
+			if (m2 > fracValue) {
 				// To hit 'edge cases' such as 1e-100 and 1e+100 faster, we test multiple powers, exponentially
 				// degrading the power (rather: multiplier) until we can do no more:
 				let multiplier = 1e7 + randFloat2(1e6);
@@ -249,8 +259,8 @@ function convertFloatToFraction(value, largestDenominator) {
 						mn = mult * a + medianNumerator;
 						md = mult * b + medianDenominator;
 						m2 = mn / md;
-						// console.log(`L-count`, count, multiplier, expectLastRound, m2 - value, mn - c, md - d);
-					} while (m2 > value && md < largestDenominator);
+						// console.log(`L-count`, count, multiplier, expectLastRound, m2 - fracValue, mn - c, md - d);
+					} while (m2 > fracValue && md < largestDenominator);
 
 					count = prevCount;
 
@@ -269,7 +279,7 @@ function convertFloatToFraction(value, largestDenominator) {
 				lCount += mult + 1;
 				lMsg = `${a} / ${b} <> ${mn} / ${md}`;
 
-				// Check if we hit the IEE754 calculus precision limits:
+				// Check if we hit the IEEE754 calculus precision limits:
 				if (c === mn && d === md) {
 					console.log(`IEEE754 precision limits reached: fractions ${a} / ${b} <> ${mn} / ${md} <-- ${c} / ${d}`);
 					IEEE754CalcPrecLimitReached = true;
@@ -310,18 +320,18 @@ function convertFloatToFraction(value, largestDenominator) {
 let randSeed = 42;
 
 // direct implementation of fastrand()
-function randFloat2(amplitude) {  
+function randFloat2(amplitude: number) : number {  
 	randSeed = (randSeed * 214013 + 2531011) & 0xFFFFFFFF;
 	return randSeed * amplitude / 0x7FFFFFFF;
 }  
 
 // fast rand float, using full 32bit precision
-function fastRandFloat(amplitude) {
+function fastRandFloat(amplitude: number) : number {
     randSeed = (randSeed * 16807) & 0xFFFFFFFF;
 	return randSeed * amplitude / 0x7FFFFFFF;
 }
 
-function randVAX(amplitude) {
+function randVAX(amplitude: number) : number {
 	randSeed = (randSeed * 69069 + 1234567) & 0xFFFFFFFF;
 	return randSeed * amplitude / 0x7FFFFFFF;
 }
