@@ -1,0 +1,27 @@
+{
+  "name": "the-calculus-road",
+  "version": "1.0.0",
+  "description": "[Book] The road through calculus for children and other curious folk of all ages, with exercises",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GerHobbelt/The-Calculus-Road.git"
+  },
+  "keywords": [
+    "calculus",
+    "book",
+    "exercises",
+    "human-learning",
+    "education",
+    "school"
+  ],
+  "author": "Ger Hobbelt",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/GerHobbelt/The-Calculus-Road/issues"
+  },
+  "homepage": "https://github.com/GerHobbelt/The-Calculus-Road#readme"
+}
